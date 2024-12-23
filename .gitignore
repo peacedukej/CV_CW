@@ -3,3 +3,4 @@ venv
 
 download.py
 .gitmodules
+.gitignore
