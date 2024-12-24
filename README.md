@@ -1,76 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>README</title>
-</head>
-<body>
-    <h1>CV_CW: FastAPI Object Detection API</h1>
+# CV_CW: FastAPI Object Detection API
 
-    <h2>Описание проекта</h2>
-    <p><strong>CV_CW</strong> — это API для обработки изображений с использованием модели YOLOv7. API предоставляет методы для загрузки изображений, обработки их с помощью YOLO, а также для возврата изображения с выделенными сегментами.</p>
-    <p>Этот проект построен с использованием <strong>FastAPI</strong>, <strong>Redis</strong>, <strong>Docker</strong>, и <strong>YOLOv7</strong>.</p>
+## Описание проекта
 
-    <h2>Функциональность API</h2>
+**CV_CW** — это API для обработки изображений с использованием модели YOLOv7. API предоставляет методы для загрузки изображений, обработки их с помощью YOLO, а также для возврата изображения с выделенными сегментами.
 
-    <h3>1. Загрузка изображения для обработки</h3>
-    <ul>
-        <li><strong>URL:</strong> <code>/upload</code></li>
-        <li><strong>Метод:</strong> <code>POST</code></li>
-        <li><strong>Описание:</strong> Загрузка изображения для анализа с использованием модели YOLOv7.</li>
-        <li><strong>Параметры:</strong> <code>file</code> (Изображение в формате JPEG, JPG или PNG).</li>
-        <li><strong>Ответ:</strong>
-            <pre>{"uid": "unique-image-id"}</pre>
-        </li>
-    </ul>
+Этот проект построен с использованием **FastAPI**, **Redis**, **Docker**, и **YOLOv7**.
 
-    <h3>2. Получение результатов обработки</h3>
-    <ul>
-        <li><strong>URL:</strong> <code>/result/{uid}</code></li>
-        <li><strong>Метод:</strong> <code>GET</code></li>
-        <li><strong>Описание:</strong> Возвращает результаты анализа изображения в виде JSON-объекта.</li>
-        <li><strong>Пример ответа:</strong>
-            <pre>
-[
-  {
-    "xmin": 186,
-    "ymin": 396,
-    "xmax": 938,
-    "ymax": 1280,
-    "confidence": 0.88,
-    "class": 15,
-    "name": "cat"
-  }
-]
-            </pre>
-        </li>
-    </ul>
+---
 
-    <h3>3. Получение изображения с выделенными сегментами</h3>
-    <ul>
-        <li><strong>URL:</strong> <code>/highlight/{uid}</code></li>
-        <li><strong>Метод:</strong> <code>GET</code></li>
-        <li><strong>Описание:</strong> Возвращает исходное изображение с выделенными сегментами.</li>
-        <li><strong>Ответ:</strong> Изображение в формате JPEG.</li>
-    </ul>
+## Функциональность API
 
-    <h2>Установка и запуск</h2>
+API включает следующие методы:
 
-    <h3>1. Клонирование репозитория</h3>
-    <pre><code>git clone https://github.com/peacedukej/CV_CW.git
-cd CV_CW</code></pre>
+### 1. **Загрузка изображения для обработки**
+   - **URL**: `/upload`
+   - **Метод**: `POST`
+   - **Описание**: Загрузка изображения для анализа с использованием модели YOLOv7.
+   - **Параметры**:
+     - `file`: Изображение в формате JPEG, JPG или PNG.
+   - **Ответ**:
+     ```json
+     {
+       "uid": "unique-image-id"
+     }
+     ```
 
-    <h3>2. Установка зависимостей</h3>
+### 2. **Получение результатов обработки**
+   - **URL**: `/result/{uid}`
+   - **Метод**: `GET`
+   - **Описание**: Возвращает результаты анализа изображения в виде JSON-объекта.
+   - **Пример ответа**:
+     ```json
+     [
+       {
+         "xmin": 186,
+         "ymin": 396,
+         "xmax": 938,
+         "ymax": 1280,
+         "confidence": 0.88,
+         "class": 15,
+         "name": "cat"
+       }
+     ]
+     ```
 
-    <h4>Через Docker</h4>
-    <p>Убедитесь, что у вас установлены <strong>Docker</strong> и <strong>Docker Compose</strong>.</p>
-    <pre><code>docker compose up --build</code></pre>
-    <p>Приложение будет доступно по адресу <a href="http://localhost:8000">http://localhost:8000</a>.</p>
+### 3. **Получение изображения с выделенными сегментами**
+   - **URL**: `/highlight/{uid}`
+   - **Метод**: `GET`
+   - **Описание**: Возвращает исходное изображение с выделенными сегментами.
+   - **Ответ**: Изображение в формате JPEG.
 
-    
-    <h2>Структура проекта</h2>
-    <pre><code>
+---
+
+## Установка и запуск
+
+### 1. Клонирование репозитория
+```bash
+git clone https://github.com/peacedukej/CV_CW.git
+cd CV_CW
+```
+
+### 2. Установка зависимостей
+
+#### Через Docker
+Убедитесь, что у вас установлены **Docker** и **Docker Compose**.
+
+Соберите и запустите контейнеры:
+```bash
+docker compose up --build
+```
+
+Приложение будет доступно по адресу [http://localhost:8000](http://localhost:8000).
+
+## Структура проекта
+
+```
 CV_CW/
 ├── app/
 │   ├── routers/
@@ -85,20 +89,33 @@ CV_CW/
 ├── docker-compose.yml     # Конфигурация Docker Compose
 ├── requirements.txt       # Зависимости Python
 └── README.md              # Документация
-    </code></pre>
+```
 
-    <h2>Использование</h2>
+---
 
-    <h3>Отправка изображения на обработку</h3>
-    <pre><code>curl -X POST "http://localhost:8000/upload" -F "file=@path_to_image.jpg"</code></pre>
-    <p><strong>Ответ:</strong>
-        <pre>{"uid": "unique-image-id"}</pre>
-    </p>
+## Использование
 
-    <h3>Получение результатов анализа</h3>
-    <pre><code>curl -X GET "http://localhost:8000/result/unique-image-id"</code></pre>
+### Отправка изображения на обработку
+Отправьте POST-запрос на `/upload` с изображением:
+```bash
+curl -X POST "http://localhost:8000/upload" -F "file=@path_to_image.jpg"
+```
 
-    <h3>Получение изображения с выделенными объектами</h3>
-    <pre><code>curl -X GET "http://localhost:8000/highlight/unique-image-id" --output highlighted.jpg</code></pre>
-</body>
-</html>
+Ответ:
+```json
+{
+  "uid": "unique-image-id"
+}
+```
+
+### Получение результатов анализа
+Отправьте GET-запрос на `/result/{uid}`:
+```bash
+curl -X GET "http://localhost:8000/result/unique-image-id"
+```
+
+### Получение изображения с выделенными объектами
+Отправьте GET-запрос на `/highlight/{uid}`:
+```bash
+curl -X GET "http://localhost:8000/highlight/unique-image-id" --output highlighted.jpg
+```
